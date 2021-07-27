@@ -148,19 +148,19 @@ namespace AgOpenGPS
 
             //draw the vehicle Body
 
-            if (!mf.isFirstHeadingSet)
-            {
-                GL.Enable(EnableCap.Texture2D);
-                GL.Color4(1.25f, 1.25f, 1.275f, 0.75);
-                GL.BindTexture(TextureTarget.Texture2D, mf.texture[14]);        // Select Our Texture
-                GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
-                GL.TexCoord2(1, 0); GL.Vertex2(5, 5); // Top Right
-                GL.TexCoord2(0, 0); GL.Vertex2(1, 5); // Top Left
-                GL.TexCoord2(1, 1); GL.Vertex2(5, 1); // Bottom Right
-                GL.TexCoord2(0, 1); GL.Vertex2(1, 1); // Bottom Left
-                GL.End();                       // Done Building Triangle Strip
-                GL.Disable(EnableCap.Texture2D);
-            }
+            //if (!mf.isFirstHeadingSet)
+            //{
+                //GL.Enable(EnableCap.Texture2D);
+                //GL.Color4(1.25f, 1.25f, 1.275f, 0.75);
+                //GL.BindTexture(TextureTarget.Texture2D, mf.texture[14]);        // Select Our Texture
+                //GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
+                //GL.TexCoord2(1, 0); GL.Vertex2(5, 5); // Top Right
+                //GL.TexCoord2(0, 0); GL.Vertex2(1, 5); // Top Left
+               // GL.TexCoord2(1, 1); GL.Vertex2(5, 1); // Bottom Right
+                //GL.TexCoord2(0, 1); GL.Vertex2(1, 1); // Bottom Left
+               //GL.End();                       // Done Building Triangle Strip
+                //GL.Disable(EnableCap.Texture2D);
+           // }
 
             //3 vehicle types  tractor=0 harvestor=1 4wd=2
 
@@ -249,7 +249,10 @@ namespace AgOpenGPS
                 else if (vehicleType == 1) //Harvestor
                 {
                     //vehicle body
+
                     GL.Enable(EnableCap.Texture2D);
+                    GL.Color4(mf.vehicleColor.R, mf.vehicleColor.G, mf.vehicleColor.B, mf.vehicleOpacityByte);
+                    GL.BindTexture(TextureTarget.Texture2D, mf.texture[18]);        // Select Our Texture
 
                     double leftAckermam, rightAckerman;
 
@@ -279,8 +282,15 @@ namespace AgOpenGPS
                             rightAckerman = 1.25 * mf.mc.actualSteerAngleDegrees;
                         }
                     }
+                    
+                    GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
+                    GL.TexCoord2(1, 0); GL.Vertex2(trackWidth, wheelbase * 1.5); // Top Right
+                    GL.TexCoord2(0, 0); GL.Vertex2(-trackWidth, wheelbase * 1.5); // Top Left
+                    GL.TexCoord2(1, 1); GL.Vertex2(trackWidth, -wheelbase * 1.5); // Bottom Right
+                    GL.TexCoord2(0, 1); GL.Vertex2(-trackWidth, -wheelbase * 1.5); // Bottom Left
 
-                    GL.Color4((byte)20, (byte)20, (byte)20, mf.vehicleOpacityByte);
+                    GL.End();                       // Done Building Triangle Strip
+
                     //right wheel
                     GL.PushMatrix();
                     GL.Translate(trackWidth * 0.5, -wheelbase, 0);
@@ -312,15 +322,7 @@ namespace AgOpenGPS
 
                     GL.PopMatrix();
 
-                    GL.Color4(mf.vehicleColor.R, mf.vehicleColor.G, mf.vehicleColor.B, mf.vehicleOpacityByte);
-                    GL.BindTexture(TextureTarget.Texture2D, mf.texture[(uint)FormGPS.textures.Harvester]);        // Select Our Texture
-                    GL.Begin(PrimitiveType.TriangleStrip);              // Build Quad From A Triangle Strip
-                    GL.TexCoord2(1, 0); GL.Vertex2(trackWidth, wheelbase * 1.5); // Top Right
-                    GL.TexCoord2(0, 0); GL.Vertex2(-trackWidth, wheelbase * 1.5); // Top Left
-                    GL.TexCoord2(1, 1); GL.Vertex2(trackWidth, -wheelbase * 1.5); // Bottom Right
-                    GL.TexCoord2(0, 1); GL.Vertex2(-trackWidth, -wheelbase * 1.5); // Bottom Left
-
-                    GL.End();                       // Done Building Triangle Strip
+                   
 
                     //disable, straight color
                     GL.Disable(EnableCap.Texture2D);
