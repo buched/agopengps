@@ -12,7 +12,7 @@ namespace AgOpenGPS.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.10.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("Microsoft.VisualStudio.Editors.SettingsDesigner.SettingsSingleFileGenerator", "16.8.1.0")]
     internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
         
         private static Settings defaultInstance = ((Settings)(global::System.Configuration.ApplicationSettingsBase.Synchronized(new Settings())));
@@ -1100,6 +1100,53 @@ namespace AgOpenGPS.Properties {
             }
             set {
                 this["setGPS_isRTK_KillAutoSteer"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+
+        public global::AgOpenGPS.TBrand TBrand
+        {
+            get
+            {
+                return ((global::AgOpenGPS.TBrand)(this["TBrand"]));
+            }
+            set
+            {
+                this["TBrand"] = value;
+            }
+        }
+
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+
+        public global::AgOpenGPS.HBrand HBrand
+        {
+            get
+            {
+               return ((global::AgOpenGPS.HBrand)(this["HBrand"]));
+            }
+            set
+            {
+                this["HBrand"] = value;
+            }
+        }
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+
+        public global::AgOpenGPS.WDBrand WDBrand
+        {
+            get
+            {
+                return ((global::AgOpenGPS.WDBrand)(this["WDBrand"]));
+            }
+            set
+            {
+                this["WDBrand"] = value;
             }
         }
     }

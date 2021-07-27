@@ -272,5 +272,8 @@
     <Setting Name="setGPS_isRTK_KillAutoSteer" Type="System.Boolean" Scope="User">
       <Value Profile="(Default)">False</Value>
     </Setting>
+    <Setting Name="TBrand" Type="AgOpenGPS.TBrand" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
