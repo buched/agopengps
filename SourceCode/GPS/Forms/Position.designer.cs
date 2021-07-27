@@ -956,7 +956,7 @@ namespace AgOpenGPS
 
             //finally fixed distance for making a curve line
             if (!curve.isOkToAddDesPoints) sectionTriggerStepDistance = sectionTriggerStepDistance + 0.2;
-            if (ct.isContourBtnOn) sectionTriggerStepDistance *=0.5;
+            if (ct.isContourBtnOn) sectionTriggerStepDistance = 1;
 
             //precalc the sin and cos of heading * -1
             sinSectionHeading = Math.Sin(-toolPos.heading);
@@ -1035,7 +1035,7 @@ namespace AgOpenGPS
                         (!ct.isContourBtnOn && curve.isBtnCurveOn && curve.isCurveSet && isAutoSteerBtnOn))
             {
                 //no contour recorded
-                if (ct.isContourOn) { ct.StopContourLine(pivotAxlePos); }
+                if (ct.isContourOn) { ct.StopContourLine(steerAxlePos); }
             }
             else
             {
@@ -1050,65 +1050,28 @@ namespace AgOpenGPS
                         ct.AddPoint(pivotAxlePos);
                     }
                 }
-
+               
                 //All sections OFF so if on, turn off
                 else { if (ct.isContourOn) { ct.StopContourLine(pivotAxlePos); } }
+                if (ct.stripList.Count > 0)
+                {
+                    int cntSL = ct.stripList.Count;
+                    if (ct.stripList[cntSL - 1].Count > 0)
+                    {
+                        int cntCL = ct.stripList[cntSL - 1].Count;
 
+                        if (cntCL > 63)
+                        {
+                            ct.StopContourLine(steerAxlePos);
+                            ct.StartContourLine(pivotAxlePos);
+                        }
+                    }
+                }
                 //Build contour line if close enough to a patch
-                if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(pivotAxlePos,steerAxlePos);
+                vec3 look = new vec3(guidanceLookPos.easting, guidanceLookPos.northing, 0);
+                if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(look);
             }
-
-
-            ////send the current and previous GPS fore/aft corrected fix to each section
-            //for (int j = 0; j < tool.numOfSections + 1; j++)
-            //{
-            //    if (section[j].isMappingOn)
-            //    {
-            //        section[j].AddMappingPoint();
-            //        sectionCounter++;
-            //    }
-            //}
-            //if ((ABLine.isBtnABLineOn && !ct.isContourBtnOn && ABLine.isABLineSet && isAutoSteerBtnOn) ||
-            //            (!ct.isContourBtnOn && curve.isBtnCurveOn && curve.isCurveSet && isAutoSteerBtnOn))
-            //{
-            //    //no contour recorded
-            //    if (ct.isContourOn) { ct.StopContourLine(steerAxlePos); }
-            //}
-            //else
-            //{
-            //    //Contour Base Track.... At least One section on, turn on if not
-            //    if (sectionCounter != 0)
-            //    {
-            //        //keep the line going, everything is on for recording path
-            //        if (ct.isContourOn) ct.AddPoint(pivotAxlePos);
-            //        else
-            //        {
-            //            ct.StartContourLine(pivotAxlePos);
-            //            ct.AddPoint(pivotAxlePos);
-            //        }
-            //    }
-
-            //    //All sections OFF so if on, turn off
-            //    else { if (ct.isContourOn) { ct.StopContourLine(pivotAxlePos); } }
-            //    if (ct.stripList.Count > 0)
-            //    {
-            //        int cntSL = ct.stripList.Count;
-            //        if (ct.stripList[cntSL - 1].Count > 0)
-            //        {
-            //            int cntCL = ct.stripList[cntSL - 1].Count;
-
-            //            if (cntCL > 63)
-            //            {
-            //                ct.StopContourLine(steerAxlePos);
-            //                ct.StartContourLine(pivotAxlePos);
-            //            }
-            //        }
-            //    }
-            //    //Build contour line if close enough to a patch
-            //    vec3 look = new vec3(guidanceLookPos.easting, guidanceLookPos.northing, 0);
-            //    if (ct.isContourBtnOn) ct.BuildContourGuidanceLine(look);
-        //}
-    }
+        }
 
         //calculate the extreme tool left, right velocities, each section lookahead, and whether or not its going backwards
         public void CalculateSectionLookAhead(double northing, double easting, double cosHeading, double sinHeading)

@@ -23,7 +23,6 @@ namespace AgOpenGPS
                 btnCycleLines.Image = Properties.Resources.ColorLocked;
                 //turn off youturn...
                 DisableYouTurnButtons();
-                guidanceLookAheadTime = 0.5;
             }
 
             else
@@ -36,7 +35,6 @@ namespace AgOpenGPS
                 }
 
                 btnCycleLines.Image = Properties.Resources.ABLineCycle;
-                guidanceLookAheadTime = Properties.Settings.Default.setAS_guidanceLookAheadTime;
             }
         }
         private void btnCurve_Click(object sender, EventArgs e)
@@ -1586,6 +1584,7 @@ namespace AgOpenGPS
             ct.ctList?.Clear();
             contourSaveList?.Clear();
         }
+
         private void toolStripAreYouSure_Click(object sender, EventArgs e)
         {
             if (isJobStarted)
@@ -1652,6 +1651,7 @@ namespace AgOpenGPS
                 }
             }
         }
+
         private void headingChartToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //check if window already exists
@@ -1667,6 +1667,7 @@ namespace AgOpenGPS
             Form formG = new FormHeadingGraph(this);
             formG.Show(this);
         }
+
         private void toolStripAutoSteerChart_Click(object sender, EventArgs e)
         {
             //check if window already exists
@@ -1698,7 +1699,7 @@ namespace AgOpenGPS
 
         #endregion
 
-        #region Nav Panel
+        #region nav Panel
         private void btn2D_Click(object sender, EventArgs e)
         {
             camera.camFollowing = true;
@@ -1816,6 +1817,7 @@ namespace AgOpenGPS
                 }
             }
         }
+
         private void toolStripBtnField_Click(object sender, EventArgs e)
         {
             CloseCurrentJob();
@@ -1879,6 +1881,7 @@ namespace AgOpenGPS
             }
             //update GUI areas
         }
+
         private void toolStripBtnMakeBndContour_Click(object sender, EventArgs e)
         {
             //build all the contour guidance lines from boundaries, all of them.
@@ -1915,6 +1918,7 @@ namespace AgOpenGPS
                 return;
             }
         }
+
         private void headlandToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (bnd.bndArr.Count == 0)
@@ -1955,6 +1959,7 @@ namespace AgOpenGPS
             FixPanelsAndMenus(true);
             SetZoom();
         }
+
         private void boundariesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (isJobStarted)
