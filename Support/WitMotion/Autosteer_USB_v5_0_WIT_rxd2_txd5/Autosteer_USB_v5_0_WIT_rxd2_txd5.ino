@@ -104,9 +104,6 @@ SoftwareSerial mySerial(2, 5); // RX, TX
 //wit
   float hwt901Heading = 0;
   double hwt901Roll = 0;
-  unsigned double LastRoll;
-  unsigned double DiffRoll;
-   unsigned double NewhwtRoll;
 
   int16_t hwt901Heading10x = 0;
   int16_t hwt901Roll10x = 0;
@@ -571,16 +568,12 @@ SoftwareSerial mySerial(2, 5); // RX, TX
         else if (wit == 1)
         {
           //wit
-        LastRoll=hwt901Roll + 200;
         while (mySerial.available()) 
           {
             JY901.CopeSerialData(mySerial.read()); //Call JY901 data cope function
           }
-         
         hwt901Heading = (JY901.stcAngle.Angle[2]);
         hwt901Roll = (JY901.stcAngle.Angle[0]);
-        NewhwtRoll = hwt901Roll + 200;
-        DiffRoll = LastRoll - NewhwtRoll;
         hwt901Heading = (hwt901Heading) / 32768;
         hwt901Heading = (hwt901Heading) * 180;
         hwt901Heading = -hwt901Heading;
