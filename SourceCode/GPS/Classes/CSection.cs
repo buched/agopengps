@@ -109,14 +109,17 @@ namespace AgOpenGPS
                 patchList.Add(triangleList);
 
                 vec3 colur = new vec3(mf.sectionColorDay.R, mf.sectionColorDay.G, mf.sectionColorDay.B);
+
                 triangleList.Add(colur);
 
                 //left side of triangle
                 vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 0);
+                point = new vec3(point, mf.Data.DataValue);
                 triangleList.Add(point);
 
                 //Right side of triangle
                 point = new vec3(rightPoint.easting, rightPoint.northing, 0);
+                point = new vec3(point, mf.Data.DataValue);
                 triangleList.Add(point);
             }
         }
@@ -148,12 +151,14 @@ namespace AgOpenGPS
             //add two triangles for next step.
             //left side
             vec3 point = new vec3(leftPoint.easting, leftPoint.northing, 0);
+            point = new vec3(point, mf.Data.DataValue);
 
             //add the point to List
             triangleList.Add(point);
 
             //Right side
             vec3 point2 = new vec3(rightPoint.easting, rightPoint.northing, 0);
+            point2 = new vec3(point2, mf.Data.DataValue);
 
             //add the point to the list
             triangleList.Add(point2);

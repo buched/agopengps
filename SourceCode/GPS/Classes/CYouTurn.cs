@@ -239,6 +239,7 @@ namespace AgOpenGPS
                 pt.easting = ytList[0].easting + (Math.Sin(head) * 0.2);
                 pt.northing = ytList[0].northing + (Math.Cos(head) * 0.2);
                 pt.heading = ytList[0].heading;
+                pt.data1 = 128;
                 ytList.Insert(0, pt);
             }
 
@@ -249,6 +250,7 @@ namespace AgOpenGPS
                 pt.easting = ytList[count - 1].easting + (Math.Sin(head) * i * 0.2);
                 pt.northing = ytList[count - 1].northing + (Math.Cos(head) * i * 0.2);
                 pt.heading = head;
+                pt.data1 = 128;
                 ytList.Add(pt);
             }
 

@@ -232,6 +232,9 @@ namespace AgOpenGPS
                                     //draw the triangle in each triangle strip
                                     GL.Begin(PrimitiveType.TriangleStrip);
 
+
+
+
                                     if (isDay) GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)152);
                                     else GL.Color4((byte)triList[0].easting, (byte)triList[0].northing, (byte)triList[0].heading, (byte)(152 * 0.5));
 
@@ -241,6 +244,25 @@ namespace AgOpenGPS
                                         int step = mipmap;
                                         for (int i = 1; i < count2; i += step)
                                         {
+                                            if (Data.isDataMap)
+                                            {
+                                                float red = (float)(double)(1 - ((double)(triList[i].data1) / (256)));
+
+                                                if (red <= 1) GL.Color4(1, 0, 1, .3f);
+                                                if (red < .87) GL.Color4(.5, 0, 1, .4f);
+                                                if (red < .75) GL.Color4(0, 0, 1, .5f);
+                                                if (red < .67) GL.Color4(0, 1, 0, .6f);
+                                                if (red < .5) GL.Color4(1, 1, 0, .7f);
+                                                if (red < .37) GL.Color4(1, .5, 0, .8f);
+                                                if (red < .25) GL.Color4(1, 0, 0, .9f);
+
+
+
+                                                if (red == 0) GL.Color4(0, 0, 0, .9f);
+                                            }
+
+
+
                                             GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
                                             GL.Vertex3(triList[i].easting, triList[i].northing, 0); i++;
                                             if (count2 - i <= (mipmap + 2)) step = 0;//too small to mipmap it
@@ -267,6 +289,22 @@ namespace AgOpenGPS
                             patchCount = section[tool.numOfSections].patchList.Count;
                             //draw the triangle in each triangle strip
                             GL.Begin(PrimitiveType.TriangleStrip);
+                            if (Data.isDataMap)
+                            {
+                                float red = (float)(double)(1 - ((double)(Data.DataValue) / (256)));
+
+                                if (red <= 1) GL.Color4(1, 0, 1, .3f);
+                                if (red < .87) GL.Color4(.5, 0, 1, .4f);
+                                if (red < .75) GL.Color4(0, 0, 1, .5f);
+                                if (red < .67) GL.Color4(0, 1, 0, .6f);
+                                if (red < .5) GL.Color4(1, 1, 0, .7f);
+                                if (red < .37) GL.Color4(1, .5, 0, .8f);
+                                if (red < .25) GL.Color4(1, 0, 0, .9f);
+
+
+
+                                if (red == 0) GL.Color4(0, 0, 0, .9f);
+                            }
 
                             //left side of triangle
                             vec2 pt = new vec2((cosSectionHeading * section[tool.numOfSections].positionLeft) + toolPos.easting,
@@ -296,6 +334,22 @@ namespace AgOpenGPS
 
                                     //draw the triangle in each triangle strip
                                     GL.Begin(PrimitiveType.TriangleStrip);
+                                    if (Data.isDataMap)
+                                    {
+                                        float red = (float)(double)(1 - ((double)(Data.DataValue) / (256)));
+
+                                        if (red <= 1) GL.Color4(1, 0, 1, .3f);
+                                        if (red < .87) GL.Color4(.5, 0, 1, .4f);
+                                        if (red < .75) GL.Color4(0, 0, 1, .5f);
+                                        if (red < .67) GL.Color4(0, 1, 0, .6f);
+                                        if (red < .5) GL.Color4(1, 1, 0, .7f);
+                                        if (red < .37) GL.Color4(1, .5, 0, .8f);
+                                        if (red < .25) GL.Color4(1, 0, 0, .9f);
+
+
+
+                                        if (red == 0) GL.Color4(0, 0, 0, .9f);
+                                    }
 
                                     //left side of triangle
                                     vec2 pt = new vec2((cosSectionHeading * section[j].positionLeft) + toolPos.easting,
@@ -405,6 +459,70 @@ namespace AgOpenGPS
                     {
                         DrawLightBarText();
                     }
+
+                    
+                    
+                        if (Data.isDataMap && isJobStarted)
+                        {
+
+                            double set = 60;
+                            double hiit = 0;
+
+                            GL.PushMatrix();
+                            GL.Translate(0, 300, 0);
+                            GL.LineWidth(2);
+                            GL.Color3(0.54f, 0.54f, 0.54f);
+                            GL.Translate(-(double)oglMain.Width / 2, 0, 0);
+
+                            GL.Translate(70, -30, 0);//left side
+
+                            double deltaAng = Data.DataValue - 128;
+
+
+                            Data.DrawCircle2(60);
+
+                            if (Data.isDataMap)
+                            {
+                                float red = (float)(double)(1 - ((double)(Data.DataValue)/ (256)));
+
+                                if (red <= 1) GL.Color4(1, 0, 1, .9f);
+                                if (red < .87) GL.Color4(.5, 0, 1, .9f);
+                                if (red < .75) GL.Color4(0, 0, 1, .9f);
+                                if (red < .67) GL.Color4(0, 1, 0, .9f);
+                                if (red < .5) GL.Color4(1, 1, 0, .9f);
+                                if (red < .37) GL.Color4(1, .5, 0, .9f);
+                                if (red < .25) GL.Color4(1, 0, 0, .9f);
+
+
+
+                                if (red == 0) GL.Color4(0, 0, 0, .9f);
+                            }
+
+                            
+                            string hede = (Data.DataValue).ToString("N0");
+                            int center = -(int)(((double)(hede.Length) * 0.5) * 16 * .8);
+                            
+                            font.DrawText(center, 20, hede, 1);
+
+                            GL.Rotate(deltaAng, 0, 0, 1);
+                            GL.LineWidth(3);
+                            GL.Begin(PrimitiveType.TriangleFan);
+                            GL.Vertex2(-5, hiit);
+                            GL.Vertex2(hiit + 0, -set);
+                            GL.Vertex2(hiit + 5, 0);
+                            GL.Vertex2(0, hiit);
+                            GL.End();
+
+                            //}
+
+
+                            //return back
+                            GL.PopMatrix();
+                            GL.LineWidth(1);
+
+                        }
+
+                    
 
                     if ((ahrs.imuRoll != 88888))
                         DrawRollBar();

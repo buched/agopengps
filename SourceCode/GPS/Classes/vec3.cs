@@ -14,12 +14,14 @@ namespace AgOpenGPS
         public double easting;
         public double northing;
         public double heading;
+        public double data1;
 
         public vec3(double easting, double northing, double heading)
         {
             this.easting = easting;
             this.northing = northing;
             this.heading = heading;
+            this.data1 = 128;
         }
 
         public vec3(vec3 v)
@@ -27,6 +29,16 @@ namespace AgOpenGPS
             easting = v.easting;
             northing = v.northing;
             heading = v.heading;
+            data1 = v.data1;
+        }
+
+        public vec3(vec3 v, int sig)
+        {
+            easting = v.easting;
+            northing = v.northing;
+            heading = v.heading;
+            data1 = sig;
+
         }
 
         public double HeadingXZ()

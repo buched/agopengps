@@ -491,6 +491,10 @@ namespace AgOpenGPS
                                 vecFix.easting = double.Parse(words[0], CultureInfo.InvariantCulture);
                                 vecFix.northing = double.Parse(words[1], CultureInfo.InvariantCulture);
                                 vecFix.heading = double.Parse(words[2], CultureInfo.InvariantCulture);
+                                if (words.Length == 4)
+                                {
+                                    vecFix.data1 = int.Parse(words[3], CultureInfo.InvariantCulture);
+                                }
                                 section[0].triangleList.Add(vecFix);
                             }
 
@@ -1139,7 +1143,8 @@ namespace AgOpenGPS
                         for (int i = 0; i < count2; i++)
                             writer.WriteLine((Math.Round(triList[i].easting,3)).ToString(CultureInfo.InvariantCulture) +
                                 "," + (Math.Round(triList[i].northing,3)).ToString(CultureInfo.InvariantCulture) +
-                                 "," + (Math.Round(triList[i].heading, 3)).ToString(CultureInfo.InvariantCulture));
+                                 "," + (Math.Round(triList[i].heading, 3)).ToString(CultureInfo.InvariantCulture) +
+                                 "," + (triList[i].data1).ToString(CultureInfo.InvariantCulture));
                     }
                 }
 

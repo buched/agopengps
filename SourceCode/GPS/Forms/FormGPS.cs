@@ -231,6 +231,7 @@ namespace AgOpenGPS
         /// Class containing workswitch functionality
         /// </summary>
         public CWorkSwitch workSwitch;
+        public CData Data;
 
         /// <summary>
         /// Sound for approaching boundary
@@ -282,6 +283,11 @@ namespace AgOpenGPS
         private void btnLeft_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void vbarData_Scroll(object sender, ScrollEventArgs e)
+        {
+            Data.DataValue = (int)vbarData.Value;
         }
 
 
@@ -413,6 +419,8 @@ namespace AgOpenGPS
 
             //access to font class
             font = new CFont(this);
+
+            Data = new CData(this);
 
             //the new steer algorithms
             gyd = new CGuidance(this);
