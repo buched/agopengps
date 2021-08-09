@@ -572,10 +572,8 @@ SoftwareSerial mySerial(2, 5); // RX, TX
           {
             JY901.CopeSerialData(mySerial.read()); //Call JY901 data cope function
           }
-        hwt901Heading = (JY901.stcAngle.Angle[2]);
-        hwt901Roll = (JY901.stcAngle.Angle[0]);
-        hwt901Heading = (hwt901Heading) / 32768;
-        hwt901Heading = (hwt901Heading) * 180;
+        hwt901Heading = ((float)JY901.stcAngle.Angle[2]/32768*180);
+        hwt901Roll = ((float)JY901.stcAngle.Angle[0]/32768*180);
         hwt901Heading = -hwt901Heading;
         
         if (hwt901Heading < 0 && hwt901Heading >= -180) //Scale BNO085 yaw from [-180°;180°] to [0;360°]
@@ -583,16 +581,18 @@ SoftwareSerial mySerial(2, 5); // RX, TX
           hwt901Heading = hwt901Heading + 360;
         }
             
-        hwt901Heading10x = (int16_t)(hwt901Heading) * 10;
-        hwt901Roll10x = (int16_t)(hwt901Roll) / 18;
-Serial.println(hwt901Roll);
+        hwt901Heading10x = (float)(hwt901Heading) * 10;
+        hwt901Roll10x = (float)(hwt901Roll) * 10;
+//Serial.println(hwt901Roll);
+//Serial.println(hwt901Heading);
         //the heading x10
-        AOG[7] = (uint8_t)hwt901Heading10x;
+        AOG[7] = (float)hwt901Heading10x;
         AOG[8] = hwt901Heading10x >> 8;
 
         //the roll x10
-        AOG[9] = (uint8_t)hwt901Roll10x;
+        AOG[9] = (float)hwt901Roll10x;
         AOG[10] = hwt901Roll10x >> 8;
+
 
 //wit
         }
